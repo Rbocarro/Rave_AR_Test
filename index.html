@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Ensures proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- A-Frame library -->
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+
+    <!-- MindAR image tracking for A-Frame -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script>
+        // Custom component to handle the click and redirect
+        AFRAME.registerComponent('click-url', {
+            schema: { url: {default: ''} },
+            init: function () {
+                this.el.addEventListener('click', () => {
+                    window.location.href = this.data.url;
+                });
+            }
+        });
+    </script>
+    <script>
+        navigator.mediaDevices.getUserMedia({
+    video: {
+        width: { min: 1280, ideal: 1920, max: 3840 },
+        height: { min: 720, ideal: 1080, max: 2160 },
+        facingMode: "environment"
+    }
+});
+    </script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+
+    <a-scene    mindar-image="imageTargetSrc: ./targets.mind;
+                                filterMinCF: 0.0001; 
+                                filterBeta: 0.1; 
+                                missTolerance: 10; 
+                                warmupTolerance: 10;" 
+                color-space="sRGB" 
+                renderer="colorManagement: true, physicallyCorrectLights" 
+                vr-mode-ui="enabled: false" 
+                device-orientation-permission-ui="enabled: false"
+                >
+
+        <!--Camera:
+                    - look-controls disabled (camera controlled by AR)
+                    - cursor + raycaster allow mouse/touch interaction
+        -->
+        <a-camera position="0 0 0" look-controls="enabled: false"
+                cursor="fuse: false; rayOrigin: mouse;"
+                raycaster="far: 10000; objects: .clickable">
+        </a-camera>
+            <a-assets>
+            <video id="welcome" autoplay loop="true" src="welcome.mp4"></video>
+            </a-assets>
+        <a-entity mindar-image-target="targetIndex: 0">
+                    <a-video
+                    src="#welcome"
+                    id="welcomeScreen"
+                    position="0 0 0"
+                    width="1"
+                    height="0.5625">
+                    </a-video>
+        </a-entity>
+    </a-scene>
+</body>
+</html>
