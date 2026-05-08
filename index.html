@@ -32,22 +32,24 @@
     </script>
     <script>
         AFRAME.registerComponent('swap-on-click', {
-            schema: {
-                target: { type: 'selector' }   // GLTF model to show
-            },
-            init: function () {
-                this.el.addEventListener('click', () => {
-                    // Hide video
-                    this.el.setAttribute('visible', false);
-                    const vid = document.querySelector('#welcome');
-                    vid.pause();
+    schema: {
+        target: { type: 'selector' }
+    },
+    init: function () {
+        this.el.addEventListener('click', (evt) => {
+            evt.stopPropagation();   //  prevents mobile from triggering click-url
 
-                    // Show model
-                    if (this.data.target) {
-                        this.data.target.setAttribute('visible', true);
-                    }
-                });
+            // Hide video
+            this.el.setAttribute('visible', false);
+            const vid = document.querySelector('#welcome');
+            vid.pause();
+
+            // Show model
+            if (this.data.target) {
+                this.data.target.setAttribute('visible', true);
             }
+        });
+    }
         });
     </script>
 </head>
@@ -95,6 +97,7 @@
                     position="0 0 0"
                     width="1"
                     height="0.5625"
+                    onclick="event.preventDefault(); event.stopPropagation();"
                     swap-on-click="target: #logoEntity">
                     </a-video>
                     <!-- GLTF MODEL (initially hidden) -->
