@@ -9,6 +9,7 @@
 
     <!-- MindAR image tracking for A-Frame -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://unpkg.com/aframe-transparent-video-shader@1.0.6/dist/aframe-transparent-video-shader.umd.js"></script>
     <script>
         // Custom component to handle the click and redirect
         AFRAME.registerComponent('click-url', {
@@ -105,7 +106,7 @@
                   rotation="0 0 0"
                   animation__rotate="property: rotation; to: 0 405 0; loop: true; dur: 3000; easing: linear"
                   scale="0.5 0.5 0.5"
-                  visible="true">
+                  visible="false">
                     </a-entity>
 
 
