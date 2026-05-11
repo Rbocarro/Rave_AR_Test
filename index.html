@@ -10,6 +10,7 @@
     <!-- MindAR image tracking for A-Frame -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://unpkg.com/aframe-transparent-video-shader@1.0.6/dist/aframe-transparent-video-shader.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gloomcheng/aframe-gif-shader@latest/dist/aframe-gif-shader.min.js"></script>
     <script>
         // Custom component to handle the click and redirect
         AFRAME.registerComponent('click-url', {
@@ -78,6 +79,7 @@
             <video id="welcome" autoplay loop="true" src="welcome.mp4"></video>
             <a-asset-item id="monkeModel" src="monke.glb"></a-asset-item>
             <a-asset-item id="logoModel" src="logo.glb"></a-asset-item>
+            <img id="homeranim" src="homer.gif" />
             <img
                     id="comboTex"
                     src="Combinations-mixed-RGB-gradient-36.png"
@@ -111,8 +113,13 @@
                   scale="0.5 0.5 0.5"
                   visible="false">
                     </a-entity>
-
-
+                    <a-plane  height="0.5" width="0.5" position="1 0 0"rotation="0 0 0 "
+                    material="
+                            src:#homeranim;
+                            color: #FFF;
+                            opacity: 0.9
+                            autoplay:true;
+                    "></a-plane>
         </a-entity>
     </a-scene>
 </body>
